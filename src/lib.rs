@@ -9,5 +9,5 @@ pub fn sleepsort(list: &Vec<i32>){
     });
     }
     let highest = list.iter().max().unwrap();
-    thread::sleep(Duration::from_millis(*highest as u64));
+    thread::sleep(Duration::from_millis(*highest as u64 + 10));
 }
