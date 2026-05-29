@@ -1,13 +1,15 @@
 use std::{thread, time::Duration};
 
-pub fn sleepsort(list: &Vec<i32>){
-
-    for &i in list{
-        thread::spawn(move || {
+pub fn sleepsort(list: &Vec<i32>) {
+    let mut handles = Vec::new();
+    for &i in list {
+        let handle = thread::spawn(move || {
             thread::sleep(Duration::from_millis(i as u64));
             print!("{} ", i);
-    });
+        });
+        handles.push(handle);
     }
-    let highest = list.iter().max().unwrap();
-    thread::sleep(Duration::from_millis(*highest as u64 + 10));
+    for handle in handles {
+        handle.join().unwrap();
+    }
 }
